@@ -35,7 +35,7 @@ public class TestLoginPage extends AbstractTest {
             page.forgotPassword.click();
             Thread.sleep(SLEEP_TIMEOUT);
             Assert.assertEquals("Forgotten password did not link to correct page",
-                    Constants.BASE_URL + (mobile ? Constants.MOBILE : "") + ForgotPassword.getUrl(),
+                    baseurl + ForgotPassword.getUrl(),
                     driver.getCurrentUrl());
         } finally {
             driver.close();
@@ -50,7 +50,7 @@ public class TestLoginPage extends AbstractTest {
             page.forgotId.click();
             Thread.sleep(SLEEP_TIMEOUT);
             Assert.assertEquals("Forgotten password did not link to correct page",
-                    Constants.BASE_URL + (mobile ? Constants.MOBILE : "") + ForgotId.getUrl(),
+                    baseurl + ForgotId.getUrl(),
                     driver.getCurrentUrl());
         } finally {
             driver.close();

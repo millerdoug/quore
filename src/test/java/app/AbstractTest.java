@@ -19,6 +19,7 @@ public abstract class AbstractTest {
     private static final String BASE_URL = "https://app.quore.com";
     static final String MOBILE_URL = "/mobile";
     boolean mobile = false;
+    String baseurl = "";
     WebDriver driver; //Needs help with parallelism
 
     @Before
@@ -36,6 +37,7 @@ public abstract class AbstractTest {
         driver = new ChromeDriver(options);
 
         mobile = System.getProperty("mobile") != null && Boolean.parseBoolean(System.getProperty("mobile"));
+        baseurl = Constants.BASE_URL + (mobile ? Constants.MOBILE : "");
     }
 
     boolean checkClickable(WebElement webElement) {
@@ -52,7 +54,7 @@ public abstract class AbstractTest {
 
     Login start(WebDriver driver) throws InterruptedException {
 
-        driver.get(BASE_URL + (mobile ? MOBILE_URL : ""));
+        driver.get(baseurl);
         Login loginPage = PageFactory.initElements(driver, Login.class);
 
         Thread.sleep(SLEEP_TIMEOUT); //Could possibly handle exception to avoid throwing it in all method signatures

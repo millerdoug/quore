@@ -32,7 +32,7 @@ public class TestForgottenPasswordPage extends AbstractTest {
             forgottenPwd.forgotId.click();
             Thread.sleep(SLEEP_TIMEOUT);
             Assert.assertEquals("Failed to navigate to forgotten Id page from forgotten password",
-                    Constants.BASE_URL + (mobile ? Constants.MOBILE : "") + ForgotId.getUrl(),
+                    baseurl + ForgotId.getUrl(),
                     driver.getCurrentUrl());
         } finally {
             driver.close();
