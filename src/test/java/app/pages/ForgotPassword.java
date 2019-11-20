@@ -11,18 +11,21 @@ public class ForgotPassword {
     @FindBy(xpath = "//button")
     public WebElement continueButton;
 
+    @FindBy(partialLinkText = "(877) 974-9774")
+    public WebElement phoneSupport;
+
     @FindBy(className = "back-to-login")
     public WebElement backToLogin;
 
     @FindBy(partialLinkText = "Forgot Quore ID?")
     public WebElement forgotId;
 
-    public static String getTitle() {
-        return "Login | Quore";
+    public static String getTitle(boolean mobile) {
+        return mobile ? "Quore Login" : "Login | Quore";
     }
 
     public static String getUrl() {
-        return "https://app.quore.com/?view=forgot-password";
+        return "?view=forgot-password";
     }
 
 }

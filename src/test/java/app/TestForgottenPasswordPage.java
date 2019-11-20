@@ -5,8 +5,6 @@ import app.pages.ForgotPassword;
 import app.pages.Login;
 import junit.framework.Assert;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
 
@@ -14,13 +12,10 @@ public class TestForgottenPasswordPage extends AbstractTest {
 
     @Test
     public void validatePageItself() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
         try {
-            getHere(driver);
-            checkTypos(driver);
+            getHere();
             ForgotPassword forgottenPwd = PageFactory.initElements(driver,ForgotPassword.class);
-            Assert.assertEquals("Page title incorrect",ForgotPassword.getTitle(),driver.getTitle());
-            Assert.assertEquals("Page URL incorrect",ForgotPassword.getUrl(),driver.getCurrentUrl());
+            Assert.assertEquals("Page title incorrect",ForgotPassword.getTitle(mobile),driver.getTitle());
             Assert.assertFalse("Continue should not be clickable before entering id",checkClickable(forgottenPwd.continueButton));
             forgottenPwd.idEntryField.sendKeys("someId");
             Assert.assertTrue("Continue button should be clickable after entering id", checkClickable(forgottenPwd.continueButton));
@@ -31,13 +26,14 @@ public class TestForgottenPasswordPage extends AbstractTest {
 
     @Test
     public void validateLinkToForgottenId() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
         try {
-            getHere(driver);
+            getHere();
             ForgotPassword forgottenPwd = PageFactory.initElements(driver,ForgotPassword.class);
             forgottenPwd.forgotId.click();
             Thread.sleep(SLEEP_TIMEOUT);
-            Assert.assertEquals("Failed to navigate to forgotten Id page from forgotten password",ForgotId.getUrl(),driver.getCurrentUrl());
+            Assert.assertEquals("Failed to navigate to forgotten Id page from forgotten password",
+                    Constants.BASE_URL + (mobile ? Constants.MOBILE : "") + ForgotId.getUrl(),
+                    driver.getCurrentUrl());
         } finally {
             driver.close();
         }
@@ -45,9 +41,8 @@ public class TestForgottenPasswordPage extends AbstractTest {
 
     @Test
     public void validateLinkToLogin() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
         try {
-            getHere(driver);
+            getHere();
             ForgotPassword forgottenPwd = PageFactory.initElements(driver,ForgotPassword.class);
             forgottenPwd.backToLogin.click();
             Thread.sleep(SLEEP_TIMEOUT);
@@ -57,9 +52,10 @@ public class TestForgottenPasswordPage extends AbstractTest {
         }
     }
 
-    private void getHere(WebDriver driver) throws InterruptedException {
+    protected void getHere() throws InterruptedException {
         Login loginPage = start(driver);
         loginPage.forgotPassword.click();
+        checkTypos(driver);
         Thread.sleep(SLEEP_TIMEOUT);
     }
 }

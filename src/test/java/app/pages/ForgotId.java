@@ -8,8 +8,11 @@ public class ForgotId {
     @FindBy(xpath = "//button")
     public WebElement continueButton;
 
+    @FindBy(partialLinkText = "(877) 974-9774")
+    public WebElement phoneSupport;
+
     public static String getUrl() {
-        return "https://app.quore.com/?view=support";
+        return "?view=support";
     }
 
 }
